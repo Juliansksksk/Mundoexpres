@@ -16,8 +16,8 @@ namespace Mundoexpres.web
     {
         protected async void Page_Load(object sender, EventArgs e)
         {
-
-            lnkClientes.NavigateUrl = ResolveUrl("~/web/CarpetaTP/TiposdeProducto.aspx");
+            lnkEnvios.NavigateUrl = ResolveUrl("~/web/Envios/EnviosTerrestres.aspx");
+            lnkTiposProducto.NavigateUrl = ResolveUrl("~/web/CarpetaTP/TiposdeProducto.aspx");
             if (!IsPostBack)
             {
                 await CargarClientes();

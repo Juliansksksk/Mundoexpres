@@ -1,49 +1,75 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EnviosTerrestres.aspx.cs" Inherits="Mundoexpres.web.Envios.EnviosTerrestres" %>
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" Async="true" CodeBehind="EnviosTerrestres.aspx.cs" Inherits="Mundoexpres.web.Envios.EnviosTerrestres" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Envíos Terrestres</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script>
+        function showCalendar(calendarId) {
+            var calendar = $find(calendarId);
+            calendar._popupBehavior.show();
+        }
+
+        function hideCalendar(calendarId) {
+            var calendar = $find(calendarId);
+            calendar._popupBehavior.hide();
+        }
+    </script>
 </head>
 <body>
-    <form id="form1" runat="server">
-        <h1>Envíos Terrestres</h1>
+    <form id="form1" runat="server" class="container mt-5">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <h1 class="mb-4">Envíos Terrestres</h1>
 
-        <div>
-<h2>Crear Envío Terrestre</h2>
-<asp:Label ID="lblTipoProductoId" runat="server" Text="Tipo de Producto Id:"></asp:Label>
-<asp:DropDownList ID="ddlprod" runat="server"></asp:DropDownList><br />
+        <!-- Crear Envío Terrestre -->
+        <div class="mb-4">
+            <h2>Crear Envío Terrestre</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="ddlprod" class="form-label">Tipo de Producto Id:</label>
+                    <asp:DropDownList ID="ddlprod" runat="server" CssClass="form-select"></asp:DropDownList><br />
+                    
+                    <label for="ddlClientes" class="form-label">Cliente:</label>
+                    <asp:DropDownList ID="ddlClientes" runat="server" CssClass="form-select"></asp:DropDownList><br />
+                    
+                    <label for="TxtCantidad" class="form-label">Cantidad:</label>
+                    <asp:TextBox ID="TxtCantidad" runat="server" CssClass="form-control"></asp:TextBox><br />
 
-<asp:Label ID="lblClienteId" runat="server" Text="Cliente:"></asp:Label>
-<asp:DropDownList ID="ddlClientes" runat="server"></asp:DropDownList><br />
+                    <label for="txtFechaRegistro" class="form-label">Fecha de Registro:</label>
+                    <asp:TextBox ID="txtFechaRegistro" runat="server" onmouseover="showCalendar('calFechaRegistro')" CssClass="form-control"></asp:TextBox>
+                    <ajaxToolkit:CalendarExtender ID="calFechaRegistro" runat="server" TargetControlID="txtFechaRegistro"></ajaxToolkit:CalendarExtender><br />
 
-<asp:Label ID="lblCantidad" runat="server" Text="Cantidad:"></asp:Label>
-<asp:TextBox ID="TxtCantidad" runat="server"></asp:TextBox>
+                    <label for="txtFechaEntrega" class="form-label">Fecha de Entrega:</label>
+                    <asp:TextBox ID="txtFechaEntrega" runat="server" onmouseover="showCalendar('calFechaEntrega')" CssClass="form-control"></asp:TextBox>
+                    <ajaxToolkit:CalendarExtender ID="calFechaEntrega" runat="server" TargetControlID="txtFechaEntrega"></ajaxToolkit:CalendarExtender><br />
+                    
+                    <label for="ddlBodegaEntregaId" class="form-label">Bodega Entrega Id:</label>
+                    <asp:DropDownList ID="ddlBodegaEntregaId" runat="server" OnSelectedIndexChanged="ddlBodegaEntregaId_SelectedIndexChanged" CssClass="form-select"></asp:DropDownList><br />
+                    
+                    <label for="txtPrecioEnvio" class="form-label">Precio de Envío:</label>
+                    <asp:TextBox ID="txtPrecioEnvio" runat="server" CssClass="form-control"></asp:TextBox><br />
+                    
+                    <label for="txtPlacaVehiculo" class="form-label">Placa del Vehículo:</label>
+                    <asp:TextBox ID="txtPlacaVehiculo" runat="server" CssClass="form-control"></asp:TextBox><br />
+                    
+                    <label for="txtNumeroGuia" class="form-label">Número de Guía:</label>
+                    <asp:TextBox ID="txtNumeroGuia" runat="server" CssClass="form-control"></asp:TextBox><br />
 
-<asp:Label ID="lblFechaRegistro" runat="server" Text="Fecha de Registro:"></asp:Label>
-<asp:TextBox ID="txtFechaRegistro" runat="server"></asp:TextBox>
-<asp:CalendarExtender ID="calFechaRegistro" runat="server" TargetControlID="txtFechaRegistro"></asp:CalendarExtender><br />
-
-<asp:Label ID="lblFechaEntrega" runat="server" Text="Fecha de Entrega:"></asp:Label>
-<asp:TextBox ID="txtFechaEntrega" runat="server"></asp:TextBox>
-<asp:CalendarExtender ID="calFechaEntrega" runat="server" TargetControlID="txtFechaEntrega"></asp:CalendarExtender><br />
-            <asp:Label ID="lblBodegaEntregaId" runat="server" Text="Bodega Entrega Id:"></asp:Label>
-            <asp:TextBox ID="txtBodegaEntregaId" runat="server"></asp:TextBox><br />
-            <asp:Label ID="lblPrecioEnvio" runat="server" Text="Precio de Envío:"></asp:Label>
-            <asp:TextBox ID="txtPrecioEnvio" runat="server"></asp:TextBox><br />
-            <asp:Label ID="lblPlacaVehiculo" runat="server" Text="Placa del Vehículo:"></asp:Label>
-            <asp:TextBox ID="txtPlacaVehiculo" runat="server"></asp:TextBox><br />
-            <asp:Label ID="lblNumeroGuia" runat="server" Text="Número de Guía:"></asp:Label>
-            <asp:TextBox ID="txtNumeroGuia" runat="server"></asp:TextBox><br />
-            <asp:Button ID="btnCrear" runat="server" Text="Crear Envío" OnClick="btnCrear_Click" />
+                    <asp:Button ID="btnCrear" runat="server" Text="Crear Envío" OnClick="btnCrear_Click" CssClass="btn btn-primary"></asp:Button>
+                </div>
+            </div>
         </div>
 
+        <!-- Mostrar errores -->
+        <div>
+            <asp:Label ID="lblError" runat="server" CssClass="error-message d-none"></asp:Label>
+        </div>
+
+        <!-- Lista de Envíos Terrestres -->
         <h2>Lista de Envíos Terrestres</h2>
-        <asp:GridView ID="GridViewEnviosTerrestres" runat="server" AutoGenerateColumns="False"
-            OnRowEditing="GridViewEnviosTerrestres_RowEditing" OnRowUpdating="GridViewEnviosTerrestres_RowUpdating"
-            OnRowCancelingEdit="GridViewEnviosTerrestres_RowCancelingEdit" OnRowDeleting="GridViewEnviosTerrestres_RowDeleting"
-            DataKeyNames="EnvioTerrestreId">
+        <asp:GridView ID="GridViewEnviosTerrestres" runat="server" AutoGenerateColumns="False" OnRowEditing="GridViewEnviosTerrestres_RowEditing" OnRowDeleting="GridViewEnviosTerrestres_RowDeleting" OnRowUpdating="GridViewEnviosTerrestres_RowUpdating" DataKeyNames="EnvioTerrestreId" CssClass="table">
             <Columns>
                 <asp:BoundField DataField="EnvioTerrestreId" HeaderText="ID" ReadOnly="True" />
                 <asp:BoundField DataField="TipoProductoId" HeaderText="Tipo de Producto Id" />
@@ -58,7 +84,16 @@
                 <asp:CommandField ShowEditButton="True" ShowDeleteButton="True" />
             </Columns>
         </asp:GridView>
-
     </form>
+
+    <div>   
+
+           <div>
+            <asp:HyperLink ID="lnkClientes" runat="server" NavigateUrl='<%# ResolveUrl("~/web/ListaClientes.aspx") %>' Text="Ir a Clientes"></asp:HyperLink>
+
+        </div>
+
+    </div>
+
 </body>
 </html>
